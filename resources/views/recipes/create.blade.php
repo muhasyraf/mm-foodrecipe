@@ -1,35 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Recipe</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-
-<body>
-    <div class="container p-2">
-        <h1>Buat Resep Baru</h1>
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <form action="{{ route('recipes.store') }}" method="post" enctype="multipart/form-data">
+<x-layout>
+    <div class="container d-flex justify-content-center py-2 px-2">
+        <form action="{{ route('recipes.store') }}" method="post" class="w-75" enctype="multipart/form-data">
             @csrf
-            @if (Session::has('success'))
-                <div class="alert alert-success text-center">
-                    <p>{{ Session::get('success') }}</p>
-                </div>
-            @endif
-            <div class="d-flex flex-column p-2">
+            <h1>Buat Resep Baru</h1>
+            <div class="d-flex flex-column">
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (Session::has('success'))
+                    <div class="alert alert-success text-center">
+                        <p>{{ Session::get('success') }}</p>
+                    </div>
+                @endif
                 <div class="mb-3">
                     <label for="title">Title</label>
                     <input type="text" name="title" class="form-control" required>
@@ -59,21 +47,12 @@
                 <button type="submit" class="btn btn-primary">Tambahkan Resep</button>
             </div>
         </form>
-        <h3><a href="{{ route('recipes.index') }}">Back</a></h3>
     </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-</script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+</x-layout>
 <script>
     function addIngredientsField(addElement) {
         let addButton = document.querySelector("#addMoreIngredients");
-        // if (addElement.previousElementSibling.value.trim() === "") {
-        //     return false;
-        // }
+
         let inputParrent = document.querySelector("#ingredientList");
         // new input field
         let newInput = document.createElement("input");
@@ -114,9 +93,7 @@
 
     function addStepsField(addElement) {
         let addButton = document.querySelector("#addMoreSteps");
-        // if (addElement.previousElementSibling.value.trim() === "") {
-        //     return false;
-        // }
+
         let inputParrent = document.querySelector("#stepList");
         // new input field
         let newInput = document.createElement("input");
@@ -155,5 +132,3 @@
         }
     }
 </script>
-
-</html>
