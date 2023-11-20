@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Recipe;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function recipes()
+    {
+        return $this->hasMany(Recipe::class);
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(Recipe::class, 'recipe_like')->withTimestamps();
+    }
+    public function likesRecipe(Recipe $recipe)
+    {
+        return $this->likes()->where('recipe_id', $recipe->id)->exists();
+    }
 }

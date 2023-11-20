@@ -3,6 +3,7 @@
         <div class="d-flex flex-column">
             <img src="{{ url('storage/' . $recipe->image) }}" alt="" width="300px" class="align-self-center mb-2">
             <div class="mb-2">
+                <p>Posted by {{ $recipe->user->name }}</p>
                 <h1 class="display-4 fw-bold">{{ $recipe->title }}</h1>
                 <p class="fs-5">{{ $recipe->description }}</p>
             </div>

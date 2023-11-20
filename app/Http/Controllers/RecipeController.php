@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro illo magni ad nulla nobis ex pariatur labore, sapiente quas officia, eum cumque suscipit, maxime id vitae quo! Hic possimus laborum fugiat. Ullam totam perferendis aperiam!
      */
     public function index()
     {
@@ -42,6 +45,7 @@ class RecipeController extends Controller
 
         Recipe::create([
             'title' => $request->title,
+            'user_id' => $request->user()->id,
             'description' => $request->description,
             'ingredients' => json_encode($request->ingredients),
             'steps' => json_encode($request->steps),
